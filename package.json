@@ -1,7 +1,7 @@
 {
-  "name": "Vinted",
+  "name": "vinted",
   "version": "1.0.0",
-  "description": "",
+  "description": "��#\u0000 \u0000v\u0000i\u0000n\u0000t\u0000e\u0000d\u0000\r\u0000 \u0000",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -19,5 +19,14 @@
     "express-formidable": "^1.2.0",
     "mongoose": "^5.13.2",
     "uid2": "0.0.3"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ArthurHtbk/vinted.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ArthurHtbk/vinted/issues"
+  },
+  "homepage": "https://github.com/ArthurHtbk/vinted#readme"
 }
