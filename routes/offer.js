@@ -2,9 +2,12 @@ const express = require("express");
 const router = express.Router();
 const cloudinary = require("cloudinary").v2;
 const isAuthenticated = require("../middlewares/isAuthenticated");
+const createStripe = require("stripe");
 
 const User = require("../models/User");
 const Offer = require("../models/Offer");
+
+const stripe = createStripe(process.env.STRIPE_SK_TEST);
 
 router.post("/offer/publish", isAuthenticated, async (req, res) => {
   try {
@@ -97,13 +100,27 @@ router.get("/offers", async (req, res) => {
   }
 });
 
-router.get("/offer:id", async (req, res) => {
+router.get("/offer/:id", async (req, res) => {
   try {
     const offer = await Offer.findById(req.params.id).populate({
       path: "owner",
       select: "account.username account.phone account.avatar",
     });
     res.status(200).json(offer);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
+
+router.post("/offer/payment", async (req, res) => {
+  try {
+    let { status } = await stripe.charges.create({
+      amount: req.fields.amount,
+      currency: "eur",
+      description: `Paiement Vinted pour ${req.fields.title}`,
+      source: req.fields.token,
+    });
+    res.json({ status });
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
