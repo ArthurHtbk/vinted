@@ -2,12 +2,10 @@ const express = require("express");
 const router = express.Router();
 const cloudinary = require("cloudinary").v2;
 const isAuthenticated = require("../middlewares/isAuthenticated");
-const createStripe = require("stripe");
+const stripe = require("stripe")(process.env.STRIPE_SK_TEST);
 
 const User = require("../models/User");
 const Offer = require("../models/Offer");
-
-const stripe = createStripe(process.env.STRIPE_SK_TEST);
 
 router.post("/offer/publish", isAuthenticated, async (req, res) => {
   try {
