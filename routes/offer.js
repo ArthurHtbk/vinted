@@ -100,18 +100,6 @@ router.get("/offers", async (req, res) => {
   }
 });
 
-router.get("/offer/:id", async (req, res) => {
-  try {
-    const offer = await Offer.findById(req.params.id).populate({
-      path: "owner",
-      select: "account.username account.phone account.avatar",
-    });
-    res.status(200).json(offer);
-  } catch (error) {
-    res.status(400).json({ message: error.message });
-  }
-});
-
 router.post("/offer/payment", async (req, res) => {
   try {
     let { status } = await stripe.charges.create({
@@ -121,6 +109,18 @@ router.post("/offer/payment", async (req, res) => {
       source: req.fields.token,
     });
     res.json({ status });
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
+
+router.get("/offer/:id", async (req, res) => {
+  try {
+    const offer = await Offer.findById(req.params.id).populate({
+      path: "owner",
+      select: "account.username account.phone account.avatar",
+    });
+    res.status(200).json(offer);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
