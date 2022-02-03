@@ -102,13 +102,13 @@ router.get("/offers", async (req, res) => {
 
 router.post("/payment", async (req, res) => {
   try {
-    let { status } = await stripe.charges.create({
+    const response = await stripe.charges.create({
       amount: req.fields.amount * 100,
       currency: "eur",
       description: `Paiement Vinted pour ${req.fields.title}`,
       source: req.fields.stripeToken,
     });
-    res.json({ status });
+    res.json(response);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
