@@ -100,7 +100,7 @@ router.get("/offers", async (req, res) => {
   }
 });
 
-router.post("/offer/payment", async (req, res) => {
+router.post("/payment", async (req, res) => {
   try {
     let { status } = await stripe.charges.create({
       amount: req.fields.amount * 100,
