@@ -106,7 +106,7 @@ router.post("/payment", async (req, res) => {
       amount: req.fields.amount * 100,
       currency: "eur",
       description: `Paiement Vinted pour ${req.fields.title}`,
-      source: req.fields.token,
+      source: req.fields.stripeToken,
     });
     res.json({ status });
   } catch (error) {
