@@ -101,7 +101,7 @@ router.get("/offers", async (req, res) => {
 router.post("/payment", async (req, res) => {
   try {
     const response = await stripe.charges.create({
-      amount: req.fields.price * 100,
+      amount: Math.round(req.fields.price) * 100,
       currency: "eur",
       description: `Paiement Vinted pour ${req.fields.title}`,
       source: req.fields.stripeToken,
