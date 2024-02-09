@@ -19,7 +19,7 @@ Create user account.
 
 Log into user's account.
 
-| Body | Description          |
+| Body       | Description          |
 | ---------- | -------------------- |
 | `email`    | User's email address |
 | `password` | User's password      |
